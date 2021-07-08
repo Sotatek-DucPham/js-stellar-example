@@ -37,7 +37,7 @@ import {
         Operation.allowTrust({
           trustor: keyPair.publicKey(),
           assetCode: asset.code,
-          authorize: 2,
+          authorize: 1,
         })
       )
       .setTimeout(30)
