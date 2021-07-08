@@ -17,7 +17,8 @@ export const getCurrentAccount = async (kp: Keypair) => {
 
 export const submitTransaction = async (transaction: Transaction) => {
   try {
-    return server.submitTransaction(transaction);
+    const tx = await server.submitTransaction(transaction);
+    return tx;
   } catch (err) {
     console.log(JSON.stringify(err.response.data, null, 2));
     throw err;

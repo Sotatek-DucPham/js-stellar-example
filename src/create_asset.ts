@@ -22,7 +22,7 @@ import {
       .setTimeout(30)
       .build();
     transaction.sign(keyPair);
-    const tx = await server.submitTransaction(transaction);
+    const tx = await submitTransaction(transaction);
     console.log(`Trusted, tx=${tx.hash}`);
   }
 
