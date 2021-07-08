@@ -9,7 +9,7 @@ import {
 
 (async () => {
   const fee = await server.fetchBaseFee();
-  const asset = new Asset('WETH', issuerKeyPair.publicKey());
+  const asset = new Asset('WBTC', issuerKeyPair.publicKey());
 
   // trust line
   {
@@ -24,6 +24,27 @@ import {
     transaction.sign(keyPair);
     const tx = await submitTransaction(transaction);
     console.log(`Trusted, tx=${tx.hash}`);
+  }
+
+  // allow trust
+  {
+    const issuerAccount = await getCurrentAccount(issuerKeyPair);
+    const transaction = new TransactionBuilder(issuerAccount, {
+      fee: fee.toString(),
+      networkPassphrase: Networks.TESTNET,
+    })
+      .addOperation(
+        Operation.allowTrust({
+          trustor: keyPair.publicKey(),
+          assetCode: asset.code,
+          authorize: 2,
+        })
+      )
+      .setTimeout(30)
+      .build();
+    transaction.sign(issuerKeyPair);
+    const tx = await submitTransaction(transaction);
+    console.log(`AllowTrust, tx=${tx.hash}`);
   }
 
   // create asset
