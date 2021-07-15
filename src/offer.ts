@@ -29,4 +29,10 @@ import {
       .call();
     console.log(offers);
   }
+
+  // query operations
+  {
+    const ops = await server.operations().limit(100).call();
+    console.log(ops);
+  }
 })();
