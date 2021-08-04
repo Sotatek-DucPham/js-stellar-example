@@ -9,7 +9,7 @@ import {
 
 (async () => {
   const fee = await server.fetchBaseFee();
-  const asset = new Asset('WBTC', issuerKeyPair.publicKey());
+  const asset = new Asset('USDT', issuerKeyPair.publicKey());
 
   // trust line
   {
