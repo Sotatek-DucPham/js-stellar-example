@@ -9,7 +9,8 @@ import {
 
 (async () => {
   const fee = await server.fetchBaseFee();
-  const asset = new Asset('WETH', issuerKeyPair.publicKey());
+  const buying = new Asset('DAI', issuerKeyPair.publicKey());
+  const selling = new Asset('USDT', issuerKeyPair.publicKey());
 
   // build offer
   {
@@ -20,16 +21,16 @@ import {
     })
       .addOperation(
         Operation.manageBuyOffer({
-          buying: Asset.native(),
-          selling: asset,
-          buyAmount: '1',
-          price: '1',
+          buying: buying,
+          selling: selling,
+          buyAmount: '10',
+          price: '10',
         })
       )
       .setTimeout(30)
       .build();
     transaction.sign(keyPair);
     const tx = await submitTransaction(transaction);
-    console.log(`OK, tx=${tx.hash}`);
+    console.log(`BUY OK, tx=${tx.hash}`);
   }
 })();
